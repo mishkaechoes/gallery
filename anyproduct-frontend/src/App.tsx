@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState<{ name: string, image: string }[]>([])
   const [page, setPage] = useState(1)
 
   useEffect(() => {
