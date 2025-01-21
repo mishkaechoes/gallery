@@ -40,6 +40,7 @@ export const initializeDatabase = async () => {
   `;
 
   try {
+    console.log("Ensuring database tables exist...");
     await pool.query(createImagesTable);
     console.log("Images table ensured.");
     await pool.query(createUnicornsTable);
