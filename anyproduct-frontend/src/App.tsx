@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [images, setImages] = useState<{ name: string, presignedUrl: string }[]>([]);
+  const [images, setImages] = useState<{ id: string, name: string, image_url: string, presignedUrl: string }[]>([]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -11,6 +11,8 @@ function App() {
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
+        } else {
+          console.log("Fetched images successfully", response.body);
         }
         return response.json();
       })
