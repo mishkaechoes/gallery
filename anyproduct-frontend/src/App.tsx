@@ -1,22 +1,19 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
-  const [images, setImages] = useState<{ id: string, name: string, image_url: string, presignedUrl: string }[]>([]);
+  const [images, setImages] = useState<{ id: string; name: string; image_url: string; presignedUrl: string }[]>([]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetch(`https://internal.anyproduct.mkofman.people.aws.dev/api/images?page=${page}`)
+    fetch(`/api/images?page=${page}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
         }
         return response.json();
       })
-      .then((data) => {
-        console.log("Fetched data:", data);
-        setImages(data);
-      })
+      .then((data) => setImages(data))
       .catch((error) => console.error("Error fetching images:", error));
   }, [page]);
 
