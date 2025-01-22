@@ -2,6 +2,7 @@ import express from "express";
 import { connectToDatabase } from "../db.js";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import logger from "../logger.js";
 
 const router = express.Router();
 
@@ -21,6 +22,8 @@ router.get("/", async (req, res) => {
   const limit = 5; // Number of images per page
   const offset = (page - 1) * limit;
 
+  logger.info(`Fetching images for page ${page}`);
+
   try {
     const pool = await connectToDatabase();
     const [rows] = await pool.query(
@@ -29,20 +32,23 @@ router.get("/", async (req, res) => {
     );
 
     if (rows.length === 0) {
-      return res.json([]); // Return empty if no results
+      logger.warn(`No images found for page ${page}`);
+      return res.json([]);
     }
 
-    // Add pre-signed URLs
-    const images = await Promise.all(
+    // Add pre-signed URLs to each image
+    const imagesWithPresignedUrls = await Promise.all(
       rows.map(async (image) => {
         const presignedUrl = await generatePresignedUrl(image.name); // Use file name as the key
+        logger.debug(`Generated pre-signed URL for ${image.name}`);
         return { ...image, presignedUrl };
       })
     );
 
-    res.json(images);
+    logger.info(`Successfully fetched ${imagesWithPresignedUrls.length} images for page ${page}`);
+    res.json(imagesWithPresignedUrls);
   } catch (error) {
-    console.error("Error fetching images:", error);
+    logger.error(`Error fetching images: ${error.message}`);
     res.status(500).json({ error: "Failed to fetch images" });
   }
 });
