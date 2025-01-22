@@ -1,26 +1,31 @@
-import { useEffect, useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
 
 function App() {
-  const [images, setImages] = useState<{ name: string, image: string }[]>([])
-  const [page, setPage] = useState(1)
+  const [images, setImages] = useState<{ name: string, presignedUrl: string }[]>([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // fetch(`${import.meta.env.BACKEND_ALB_URL}/images?page=${page}`)
-    fetch(`https://dummyjson.com/recipes?skip=${page * 5}&limit=5&select=name,image`)
-    .then((response) => response.json())
-    .then((data) => setImages(data.recipes))
-    .catch((error) => console.error("Error fetching images:",error))
-  }, [page])
+    // Fetch images from the backend
+    fetch(`http://internal-ALB-Backend-479734172.us-east-1.elb.amazonaws.com/api/images?page=${page}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch images: ${response.statusText}`);
+        }
+        return response.json();
+      })
+      .then((data) => setImages(data))
+      .catch((error) => console.error("Error fetching images:", error));
+  }, [page]);
 
   return (
     <>
-      <h1>AnyProduct</h1>
+      <h1>AnyProduct Gallery</h1>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "10px" }}>
         {images.map((image, index) => (
-          <div>
-            <img key={index} src={image.image} alt={`Image ${index}`} style={{ width: "100%", borderRadius: "8px" }} />
-            <br/>
+          <div key={index}>
+            <img src={image.presignedUrl} alt={image.name} style={{ width: "100%", borderRadius: "8px" }} />
+            <br />
             {image.name}
           </div>
         ))}
@@ -30,10 +35,10 @@ function App() {
         <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
       </div>
       <div className="card">
-        page is {page}
+        <p>Page: {page}</p>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
