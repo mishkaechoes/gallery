@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 80;
 
 app.use(express.json());
 app.use(cors()); // Allow all origins
+app.options("*", cors());
 
 // Routes
 app.use("/api/images", imagesRouter);
