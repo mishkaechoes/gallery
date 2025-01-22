@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     // Fetch images from the backend
-    fetch(`http://internal-ALB-Backend-479734172.us-east-1.elb.amazonaws.com/api/images?page=${page}`)
+    fetch(`https://internal-ALB-Backend-479734172.us-east-1.elb.amazonaws.com/api/images?page=${page}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
