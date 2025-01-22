@@ -7,10 +7,10 @@ export const connectToDatabase = async () => {
   if (!pool) {
     const { host, username, password, database } = await getDatabaseCredentials();
     pool = mysql.createPool({
-      host,
+      host: "anyproduct-db.cczgiwc206sb.us-east-1.rds.amazonaws.com",
       user: username,
       password,
-      database,
+      database: "anyproduct-db",
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
