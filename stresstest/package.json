@@ -1,0 +1,11 @@
+{
+  "name": "stresstest",
+  "version": "1.0.0",
+  "description": "K6 Stress Testing for https://anyproduct.mkofman.people.aws.dev",
+  "main": "stress_test.js",
+  "scripts": {
+    "test": "k6 run stress_test.js"
+  },
+  "author": "Michael Kofman",
+  "license": "MIT"
+}
