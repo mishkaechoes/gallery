@@ -3,10 +3,12 @@ import imagesRouter from "./routes/images.js";
 import unicornsRouter from "./routes/unicorns.js";
 import { initializeDatabase } from "./db.js"; // For Flyway-like migration
 
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 80;
 
 app.use(express.json());
+app.use(cors()); // Allow all origins
 
 // Routes
 app.use("/api/images", imagesRouter);
