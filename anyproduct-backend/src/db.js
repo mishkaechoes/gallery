@@ -10,7 +10,7 @@ export const connectToDatabase = async () => {
       host: "anyproduct-db.cczgiwc206sb.us-east-1.rds.amazonaws.com",
       user: username,
       password,
-      database: "anyproductdb",
+      database: "anyproduct",
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,
