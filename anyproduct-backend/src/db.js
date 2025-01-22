@@ -1,27 +1,20 @@
 import mysql from "mysql2/promise";
 import { getDatabaseCredentials } from "./secrets.js";
-import logger from "./logger.js";
 
 let pool;
 
 export const connectToDatabase = async () => {
   if (!pool) {
-    try {
-      const { host, username, password, database } = await getDatabaseCredentials();
-      logger.info(`Connecting to database at ${host}`);
-      pool = mysql.createPool({
-        host,
-        user: username,
-        password,
-        database,
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0,
-      });
-    } catch (error) {
-      logger.error(`Failed to connect to database: ${error.message}`);
-      throw error;
-    }
+    const { host, username, password, database } = await getDatabaseCredentials();
+    pool = mysql.createPool({
+      host: "anyproduct-db.cczgiwc206sb.us-east-1.rds.amazonaws.com",
+      user: username,
+      password,
+      database: "anyproduct",
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+    });
   }
   return pool;
 };
