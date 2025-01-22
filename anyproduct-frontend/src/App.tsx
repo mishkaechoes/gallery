@@ -6,17 +6,17 @@ function App() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // Fetch images from the backend
     fetch(`https://internal.anyproduct.mkofman.people.aws.dev/api/images?page=${page}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
-        } else {
-          console.log("Fetched images successfully", response.body);
         }
         return response.json();
       })
-      .then((data) => setImages(data))
+      .then((data) => {
+        console.log("Fetched data:", data);
+        setImages(data);
+      })
       .catch((error) => console.error("Error fetching images:", error));
   }, [page]);
 
