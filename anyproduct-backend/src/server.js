@@ -1,9 +1,9 @@
 import express from "express";
+import cors from "cors"; // Use import instead of require
 import imagesRouter from "./routes/images.js";
 import unicornsRouter from "./routes/unicorns.js";
 import { initializeDatabase } from "./db.js"; // For Flyway-like migration
 
-const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 80;
 
