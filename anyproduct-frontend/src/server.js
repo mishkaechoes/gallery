@@ -3,7 +3,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import fetch from "node-fetch";
 import path from "path";
-import App from "./App";
+import App from "./App.tsx";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
