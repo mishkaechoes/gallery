@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -18,25 +18,37 @@ function App() {
   }, [page]);
 
   return (
-    <>
+    <div>
       <h1>AnyProduct Gallery</h1>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "10px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+          gap: "10px",
+        }}
+      >
         {images.map((image, index) => (
           <div key={index}>
-            <img src={image.presignedUrl} alt={image.name} style={{ width: "100%", borderRadius: "8px" }} />
+            <img
+              src={image.presignedUrl}
+              alt={image.name}
+              style={{ width: "100%", borderRadius: "8px" }}
+            />
             <br />
             {image.name}
           </div>
         ))}
       </div>
       <div style={{ marginTop: "20px" }}>
-        <button onClick={() => setPage((prev) => Math.max(prev - 1, 1))}>Previous</button>
+        <button onClick={() => setPage((prev) => Math.max(prev - 1, 1))}>
+          Previous
+        </button>
         <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
       </div>
       <div className="card">
         <p>Page: {page}</p>
       </div>
-    </>
+    </div>
   );
 }
 
