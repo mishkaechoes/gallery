@@ -10,7 +10,7 @@ const Gallery: React.FC<GalleryProps> = ({ initialImages = [], initialPage = 1 }
   const [page, setPage] = React.useState(initialPage);
 
   React.useEffect(() => {
-    fetch(`https://2d5dba7d-dd2a-4935-ba8b-ea9cb7578d34.mock.pstmn.io/api/images?page=${page}`)
+    fetch(`https://internal.anyproduct.mkofman.people.aws.dev/api/images?page=${page}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Failed to fetch images: ${response.statusText}`);
