@@ -1,11 +1,20 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
-import App from './App'
+import { StaticRouter } from 'react-router-dom/server'
 
-export function render(_url: string) {
+// App level imports
+import { Router } from './router'
+
+interface IRenderProps {
+  path: string
+}
+
+export function render({path}: IRenderProps) {
   const html = renderToString(
     <StrictMode>
-      <App />
+      <StaticRouter location={path}>
+        <Router />
+      </StaticRouter>
     </StrictMode>,
   )
   return { html }

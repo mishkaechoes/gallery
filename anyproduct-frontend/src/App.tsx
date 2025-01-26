@@ -1,57 +1,34 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import './App.css'
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
 
 function App() {
-  const [images, setImages] = useState<
-    { id: string; name: string; image_url: string; presignedUrl: string }[]
-  >([]);
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    fetch(`https://internal.anyproduct.mkofman.people.aws.dev/api/images?page=${page}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch images: ${response.statusText}`);
-        }
-        return response.json();
-      })
-      .then((data) => setImages(data))
-      .catch((error) => console.error("Error fetching images:", error));
-  }, [page]);
+  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>AnyProduct Gallery</h1>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
-          gap: "10px",
-        }}
-      >
-        {images.map((image, index) => (
-          <div key={index}>
-            <img
-              src={image.presignedUrl}
-              alt={image.name}
-              style={{ width: "100%", borderRadius: "8px" }}
-            />
-            <br />
-            {image.name}
-          </div>
-        ))}
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src="/vite.svg" className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://reactjs.org" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={() => setPage((prev) => Math.max(prev - 1, 1))}>
-          Previous
-        </button>
-        <button onClick={() => setPage((prev) => prev + 1)}>Next</button>
-      </div>
+      <h1>Vite + React</h1>
       <div className="card">
-        <p>Page: {page}</p>
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
       </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
