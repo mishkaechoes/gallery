@@ -34,7 +34,7 @@ const Gallery: React.FC<GalleryProps> = ({ initialImages = [], initialPage = 1 }
         {images.map((image, index) => (
           <div key={index}>
             <img
-              src={image.presignedUrl}
+              src={encodeURI(image.presignedUrl)}
               alt={image.name}
               style={{ width: "100%", borderRadius: "8px" }}
             />
