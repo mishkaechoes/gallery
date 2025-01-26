@@ -10,14 +10,20 @@ const Gallery: React.FC<GalleryProps> = ({ initialImages = [], initialPage = 1 }
   const [page, setPage] = React.useState(initialPage);
 
   React.useEffect(() => {
+    console.log("Getting ready to fetch images for page:", page);
     fetch(`https://internal.anyproduct.mkofman.people.aws.dev/api/images?page=${page}`)
       .then((response) => {
+        console.log("Received response:", response);
         if (!response.ok) {
+          console.error(`Error response received: ${response.status} ${response.statusText}`);
           throw new Error(`Failed to fetch images: ${response.statusText}`);
         }
         return response.json();
       })
-      .then((data) => setImages(data))
+      .then((data) => {
+        console.log("Fetched images data:", data);
+        setImages(data);
+      })
       .catch((error) => console.error("Error fetching images:", error));
   }, [page]);
 
