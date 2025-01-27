@@ -1,5 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 type ImageDict = {
   [page: number]: { [id: string]: string }; // Dictionary structure: Page -> { Image ID -> URL }
@@ -129,8 +131,34 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <>
-      <h1>Gallery</h1>
+    <div style={{ padding: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <Stack direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={goToPreviousPage}
+            disabled={page <= 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={goToNextPage}
+            disabled={!imageDictionary[page + 1]}
+          >
+            Next
+          </Button>
+        </Stack>
+      </div>
       <div
         style={{
           display: "grid",
@@ -148,18 +176,10 @@ const Gallery: React.FC = () => {
           </div>
         ))}
       </div>
-      <div style={{ marginTop: "20px" }}>
-        <button onClick={goToPreviousPage} disabled={page <= 1}>
-          Previous
-        </button>
-        <button onClick={goToNextPage} disabled={!imageDictionary[page + 1]}>
-          Next
-        </button>
-      </div>
-      <div className="card">
+      <div className="card" style={{ marginTop: "20px", textAlign: "center" }}>
         <p>Page: {page}</p>
       </div>
-    </>
+    </div>
   );
 };
 
