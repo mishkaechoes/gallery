@@ -38,3 +38,31 @@ a.active {
 .pages {
   margin-left: 1rem;
 }
+
+
+
+.custom-button {
+  background-color: #ff69b4; /* Pink color */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #ff85c1;
+}
+
+.custom-button:disabled {
+  background-color: #ffc1e3;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
